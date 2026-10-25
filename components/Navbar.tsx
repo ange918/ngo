@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useWallet } from "./WalletContext";
 import WalletModal from "./WalletModal";
@@ -47,6 +47,7 @@ export function Logo() {
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { address, setOpen, disconnect } = useWallet();
   const [openPath, setOpenPath] = useState<string | null>(null);
   const mobile = openPath === pathname;
@@ -94,12 +95,16 @@ export default function Navbar() {
           </nav>
 
           <div className="flex items-center gap-4">
+            <form onSubmit={(e) => { e.preventDefault(); const q = new FormData(e.currentTarget).get("q"); router.push(`/explore?q=${encodeURIComponent(String(q ?? ""))}`); }} className="relative hidden lg:block">
+              <input name="q" placeholder="Search By Keyword..." aria-label="Search" className="field !w-52 xl:!w-72 !rounded-lg !bg-surface/70 !py-2.5 !pr-10 !text-[11px]" />
+              <svg className="absolute right-3 top-1/2 -translate-y-1/2 text-white/70" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>
+            </form>
             {address ? (
               <button onClick={disconnect} title="Disconnect" className="btn btn-accent !py-2.5">
                 <span className="h-2 w-2 rounded-full bg-green-700" /> {address}
               </button>
             ) : (
-              <button onClick={() => setOpen(true)} className="btn btn-accent !py-2.5">
+              <button onClick={() => setOpen(true)} className="btn btn-light !py-2.5">
                 Wallet Connect
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4"><rect x="2" y="6" width="20" height="14" rx="3" /><path d="M16 13h2M2 10h20" /></svg>
               </button>
