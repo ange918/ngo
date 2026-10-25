@@ -1,8 +1,8 @@
 import Link from "next/link";
-import HeroCarousel from "@/components/HeroCarousel";
+import HeroArt from "@/components/HeroArt";
+import HeroWalletButton from "@/components/HeroWalletButton";
 import ArtCard from "@/components/ArtCard";
 import Reveal from "@/components/Reveal";
-import Stats from "@/components/Stats";
 import Faq from "@/components/Faq";
 import Newsletter from "@/components/Newsletter";
 import { items, artists, collections } from "@/lib/data";
@@ -13,37 +13,63 @@ export default function Home() {
   return (
     <>
       {/* ---------------- HERO ---------------- */}
-      <section className="relative overflow-hidden pb-10 pt-32">
-        <div className="hero-grid" />
-        <div className="pointer-events-none absolute left-1/2 top-24 h-80 w-[40rem] -translate-x-1/2 rounded-full bg-accent/10 blur-[110px]" />
+      <section className="relative overflow-hidden pt-24">
+        {/* static decorations */}
+        <span className="absolute left-[8%] top-44 hidden h-9 w-9 place-items-center rounded-full bg-red-500 text-[11px] text-white shadow-[inset_0_-3px_0_rgba(0,0,0,0.25)] sm:grid">▲</span>
+        <span className="absolute left-[36%] top-[26rem] hidden h-6 w-6 place-items-center rounded-full bg-amber-300 text-[9px] font-black text-amber-800 sm:grid">$</span>
+        <span className="absolute left-[25%] top-28 text-[10px] text-indigo-400">✦</span>
+        <span className="absolute right-[7%] top-52 text-[10px] text-indigo-400">✦</span>
+        <span className="absolute left-[16%] top-40 h-[3px] w-[3px] rounded-full bg-white/70" />
+        <span className="absolute left-[12%] top-[17.5rem] h-1 w-1 rounded-full bg-pink-400" />
+        <span className="absolute left-[30%] top-[22rem] h-[3px] w-[3px] rounded-full bg-white/70" />
+        <span className="absolute right-[10%] top-32 h-[3px] w-[3px] rounded-full bg-white/70" />
 
-        {/* floating decorations */}
-        <span className="float absolute left-[20%] top-[8.5rem] hidden text-2xl text-indigo-400 sm:block" style={{ "--r": "-12deg" } as React.CSSProperties}>✿</span>
-        <span className="float absolute left-[24%] top-[18rem] hidden h-11 w-11 place-items-center rounded-full bg-teal-300 text-xl font-black text-teal-900 shadow-[0_0_30px_rgba(94,234,212,0.4)] sm:grid" style={{ "--r": "-14deg", animationDelay: "0.4s" } as React.CSSProperties}>₿</span>
-        <span className="float absolute right-[22%] top-[17rem] hidden h-11 w-11 place-items-center rounded-full bg-amber-500 text-xl font-black text-indigo-900 shadow-[0_0_30px_rgba(245,158,11,0.4)] sm:grid" style={{ "--r": "12deg", animationDelay: "1.1s" } as React.CSSProperties}>◆</span>
-        <span className="twinkle absolute right-[14%] top-[10rem] text-white">✦</span>
-        <span className="twinkle absolute right-[21%] top-[22rem] text-3xl text-white" style={{ animationDelay: "1s" }}>✦</span>
-        <span className="twinkle absolute left-[12%] top-[14rem] h-1 w-1 rounded-full bg-white" />
-        <span className="twinkle absolute left-[30%] top-[24rem] h-1 w-1 rounded-full bg-white" style={{ animationDelay: "1.5s" }} />
-
-        <div className="relative mx-auto max-w-[1180px] px-5 text-center">
-          <h1 className="fade-up text-4xl font-extrabold tracking-tight sm:text-5xl" style={{ animationDelay: "0.05s" }}>World Of Top Works</h1>
-          <p className="fade-up mx-auto mt-8 max-w-md font-mono text-[11px] leading-relaxed text-white/60" style={{ animationDelay: "0.2s" }}>
-            Welcome to the world of rare digital art. Explore the best art from hand-picked digital artist out there and find the hidden gem.
-          </p>
-          <div className="fade-up mt-9 flex justify-center gap-3" style={{ animationDelay: "0.35s" }}>
-            <Link href="/explore" className="btn btn-accent !px-6">Discover More <Arrow /></Link>
-            <Link href="/collections" className="btn btn-light !px-6">All Collections <Arrow /></Link>
+        <div className="relative mx-auto grid max-w-[700px] items-start px-5 lg:min-h-[390px]">
+          <div className="fade-up relative z-10 max-w-md pt-10 lg:pt-14">
+            <h1 className="text-4xl font-extrabold leading-[1.2] tracking-tight sm:text-[40px]">Discover Rare &amp;<br />Unique Digital Art</h1>
+            <p className="mt-6 max-w-sm font-mono text-[11px] leading-relaxed text-white/60">
+              Discover, collect and sell extraordinary NFTs on the world&apos;s first &amp; largest NFT marketplace
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/explore" className="btn btn-accent !px-6">Explore More <Arrow /></Link>
+              <HeroWalletButton />
+            </div>
           </div>
+          <HeroArt />
         </div>
 
-        <div className="fade-up relative mt-10" style={{ animationDelay: "0.5s" }}>
-          <div className="mx-auto max-w-[1180px] px-5"><HeroCarousel /></div>
+        {/* stats + steps */}
+        <div id="how" className="relative mx-auto mt-4 max-w-[700px] scroll-mt-24 px-5 pb-4">
+          <div className="fade-up overflow-hidden rounded-2xl border border-line bg-surface" style={{ animationDelay: "0.2s" }}>
+            <div className="grid grid-cols-3 divide-x divide-line border-b border-line text-center">
+              {[["1.5K+", "Collections"], ["217K+", "Artworks"], ["3.7K+", "Artists"]].map(([n, l]) => (
+                <div key={l} className="px-3 py-7">
+                  <p className="text-3xl font-extrabold sm:text-[34px]">{n}</p>
+                  <p className="mt-1 font-mono text-[10px] text-muted">{l}</p>
+                </div>
+              ))}
+            </div>
+            <div className="grid grid-cols-2 divide-line sm:grid-cols-4 sm:divide-x">
+              {[
+                ["👛", "#f5b942", "Set Up Your Wallet", "Fusce non dignissim velit, sit amet semper eros. Quisque orci est"],
+                ["🧾", "#b6e04a", "Create collection", "Lorem ipsum dolor sit amet, consectetur adipiscing elit"],
+                ["📊", "#a07cf0", "Add your NFTs", "Suspendisse porttitor id est non accumsan. Cras vel viverra velit"],
+                ["💰", "#7ed957", "Sell your NFTs", "Maecenas non semper quam. Vivamus et arcu condimentum ipsum"],
+              ].map(([e, c, t, d], i) => (
+                <div key={t} className="border-t border-line p-5 sm:border-t-0">
+                  <span className="grid h-8 w-8 place-items-center rounded-lg text-base" style={{ background: `${c}33` }}>{e}</span>
+                  <p className="mt-6 font-mono text-[8px] tracking-wider text-muted">STEP {i + 1}</p>
+                  <h3 className="mt-2 text-[13px] font-extrabold">{t}</h3>
+                  <p className="mt-3 font-mono text-[9px] leading-relaxed text-muted">{d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ---------------- FEATURED ---------------- */}
-      <section className="mx-auto mt-20 max-w-[1180px] px-5">
+      <section className="mx-auto mt-24 max-w-[1180px] px-5">
         <Reveal><SectionHead title="Featured Item" href="/explore" /></Reveal>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {items.slice(3, 7).map((it, i) => (
@@ -61,33 +87,6 @@ export default function Home() {
                 <span key={t + k} className="flex items-center gap-12">{t}<span className="text-accent">✦</span></span>
               ))}
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ---------------- HOW IT WORKS ---------------- */}
-      <section id="how" className="mx-auto mt-28 max-w-[1180px] scroll-mt-24 px-5">
-        <Reveal className="mx-auto mb-12 max-w-xl text-center">
-          <h2 className="text-3xl font-extrabold tracking-tight">How it <span className="shine-text">works</span></h2>
-          <p className="mt-4 font-mono text-[11px] leading-relaxed text-white/60">Four simple steps from curious visitor to proud collector.</p>
-        </Reveal>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            ["01", "Connect wallet", "Link your wallet in one click. We never hold your keys.", "👛"],
-            ["02", "Explore art", "Browse drops, collections and artists curated by hand.", "🔭"],
-            ["03", "Place a bid", "Bid in live auctions or buy instantly at a fixed price.", "⚡"],
-            ["04", "Collect & trade", "Your piece lands in your wallet. Keep it or resell.", "🏆"],
-          ].map(([n, t, d, e], i) => (
-            <Reveal key={n} delay={i * 100}>
-              <div className="card group h-full p-6 transition duration-300 hover:-translate-y-2 hover:border-accent/50">
-                <div className="flex items-start justify-between">
-                  <span className="grid h-14 w-14 place-items-center rounded-2xl bg-surface-2 text-2xl transition group-hover:scale-110 group-hover:bg-accent/15">{e}</span>
-                  <span className="font-mono text-3xl font-bold text-white/10 transition group-hover:text-accent/40">{n}</span>
-                </div>
-                <h3 className="mt-6 text-base font-extrabold">{t}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{d}</p>
-              </div>
-            </Reveal>
           ))}
         </div>
       </section>
@@ -116,9 +115,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-
-      {/* ---------------- STATS ---------------- */}
-      <Stats />
 
       {/* ---------------- ARTISTS ---------------- */}
       <section className="mx-auto mt-28 max-w-[1180px] px-5">

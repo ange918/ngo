@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { items } from "@/lib/data";
 import ArtCard from "./ArtCard";
 
@@ -14,7 +15,7 @@ const sorts = [
 
 export default function ExploreGrid() {
   const [cat, setCat] = useState<(typeof cats)[number]>("All");
-  const [q, setQ] = useState("");
+  const [q, setQ] = useState(useSearchParams().get("q") ?? "");
   const [sort, setSort] = useState<(typeof sorts)[number][0]>("ending");
   const [shown, setShown] = useState(8);
 
